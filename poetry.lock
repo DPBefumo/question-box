@@ -152,8 +152,8 @@ version = "5.1.0"
 brotli = ["brotli"]
 
 [metadata]
-content-hash = "2d84ff900f16e3224dc8a8b4abe93a34eac16c1f8f4322650a5a6b1a67cc2e12"
-python-versions = "^3.7"
+content-hash = "fa69d8510fba389d1ae41f71156b7eba6d0a60303283159353af66ac2825b825"
+python-versions = "^3.8.3"
 
 [metadata.files]
 asgiref = [
