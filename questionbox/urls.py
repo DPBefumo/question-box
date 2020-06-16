@@ -20,7 +20,7 @@ from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', core_views.home_page, name='home_page'),
+    path('', core_views.index, name='index'),
 ]
 
 if settings.DEBUG:
