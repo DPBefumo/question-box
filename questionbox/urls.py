@@ -22,6 +22,7 @@ urlpatterns = [
     path('', core_views.index, name='index'),
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('core/profile_page/', core_views.profile_page, name=profile_page),
 ]
 
 if settings.DEBUG:
