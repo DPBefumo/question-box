@@ -2,8 +2,15 @@
 
 {% block content %}
 
-<h1>Question Box</h1>
+<h1 class="">Question Box</h1>
 
-<p>Please <a href='{% url 'auth_login' %}'>login</a> or <a href='{% url 'registration_register' %}'>create a new account</a></p>
+<a class="" href="{% url 'new_question' %}">Ask a Question</a>
+
+<h2 class="">Top Questions</h2>
+<div class="">
+{% for ques in question.all %}
+    <a class="" href="{% url 'question_detail' question_pk=question.pk %}">{{ ques.title }}</a>
+{% endfor %}
+</div>
 
 {% endblock %} 

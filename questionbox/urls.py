@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
     path('core/profile/', core_views.profile_page, name='profile_page'),
-    path('core/question/', core_views.question_detail, name='question_detail')
+    path('core/<int:question_pk>/', core_views.question_detail, name='question_detail'),
+    path('core/new_question/', core_views.new_question, name='new_question'),
 ]
 
 if settings.DEBUG:

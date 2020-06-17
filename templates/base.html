@@ -15,6 +15,9 @@
         <a class="" href="{% url 'profile_page' %}">Profile Page</a>
         <a class="" href="{% url 'auth_logout' %}">Logout</a>
     </div>
+        {% if not user.is_authenticated %}
+        <p>Please <a href="{% url 'auth_login' %}">login</a> or <a href="{% url 'registration_register' %}">create a new account</a></p>
+        {% endif %}
     <div>
         {% block content %}
         {% endblock %}

@@ -1,21 +1,19 @@
 from django import forms
-from models import Question, Answer
+from .models import Question, Answer
 
-class QuestionForm(form.ModelForm):
+class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = [
             'title',
             'body',
-            'time_stamp'
         ]
 
-class AnswerForm(form.ModelForm):
+class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = [
             'question',
             'body',
-            'time_stamp',
             'correct_marker',
         ]
