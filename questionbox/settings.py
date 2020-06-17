@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_extensions',
     'markdownify',
+    'registration',
 
     # Project-specific
     'users',
@@ -141,6 +142,13 @@ INTERNAL_IPS = [
     # ...
 ]
 # Configure Django App for Heroku.
+
 import django_heroku
 django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
+
+#django-registration-redux settings
+
+ACCOUNT_ACTIVATION_DAYS = 7
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL ='/'
