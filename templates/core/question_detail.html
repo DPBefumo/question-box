@@ -7,7 +7,10 @@
 <p>{{ question.body }}</p>
 
 
-<form></form>
+<h3>Add an Answer</h3>
+
+<a href="{% url 'new_answer' question_pk=question.pk %}">Add an answer</a>
+
 
 
 {% endblock %} 

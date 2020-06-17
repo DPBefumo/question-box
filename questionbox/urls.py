@@ -25,6 +25,7 @@ urlpatterns = [
     path('core/profile/', core_views.profile_page, name='profile_page'),
     path('core/<int:question_pk>/', core_views.question_detail, name='question_detail'),
     path('core/new_question/', core_views.new_question, name='new_question'),
+    path('core/<int:question_pk>/new_answer/', core_views.new_answer, name='new_answer'),
 ]
 
 if settings.DEBUG:

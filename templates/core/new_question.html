@@ -2,4 +2,14 @@
 
 {% block content %}
 
+<h1 class="">New Question</h1>
+
+<form action="{% url 'new_question' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+        <button class="" type="submit">Submit Question</button>
+    </div>
+</form>
+
 {% endblock %} 

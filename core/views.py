@@ -12,7 +12,7 @@ def profile_page(request):
 
 def question_detail(request, question_pk):
     question = get_object_or_404(request.user.questions, pk=question_pk)
-    return render(request, 'core/question.html', {'question': question})
+    return render(request, 'core/question_detail.html', {'question': question})
 
 def new_question(request):
     if request.method == 'POST':
@@ -21,8 +21,23 @@ def new_question(request):
             question = form.save(commit=False)
             question.user = request.user
             question.save()
-            return redirect(to='index', question_pk=question.pk)
+            return redirect(to='question_detail', question_pk=question.pk)
     else:
-        form = QuestionForm
+        form = QuestionForm()
     
-    return render(request, 'core/new_question.html', {"form": form})
+    return render(request, 'core/new_question.html', {'form': form})
+
+def new_answer(request, question_pk):
+    question = get_object_or_404(request.user.questions, pk=question_pk)
+
+    if request.method == 'POST':
+        form = AnswerForm(data=request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.question = question
+            answer.save()
+            return redirect(to='question_detail', question_pk=question.pk)
+    else:
+        form = AnswerForm()
+
+    return render(request, 'core/new_answer.html', {'form': form, 'question': question})

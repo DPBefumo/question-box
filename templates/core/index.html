@@ -8,9 +8,9 @@
 
 <h2 class="">Top Questions</h2>
 <div class="">
-{% for ques in question.all %}
-    <a class="" href="{% url 'question_detail' question_pk=question.pk %}">{{ ques.title }}</a>
-{% endfor %}
+    {% for question in questions.all %}
+        <a class="" href="{% url 'question_detail'  question_pk=question.pk %}">{{ question.title }}</a>
+    {% endfor %}
 </div>
 
 {% endblock %} 

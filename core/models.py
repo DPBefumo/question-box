@@ -18,3 +18,6 @@ class Answer(models.Model):
     body = models.TextField(max_length=1000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     correct_marker = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.body}"
