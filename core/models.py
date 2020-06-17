@@ -9,6 +9,9 @@ class Question(models.Model):
     body = models.TextField(max_length=1000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        return self.title
+
 class Answer(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='answers', null=True)
     question = models.ForeignKey(to=Question, on_delete=models.CASCADE, related_name='answers', null=True)
