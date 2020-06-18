@@ -152,3 +152,8 @@ del DATABASES['default']['OPTIONS']['sslmode']
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL ='/'
+
+
+#profile pictures
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

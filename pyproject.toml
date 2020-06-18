@@ -17,6 +17,7 @@ gunicorn = "^20.0.4"
 bleach-whitelist = "^0.0.10"
 django-markdownify = "^0.8.0"
 django-registration-redux = "^2.8"
+Pillow = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 

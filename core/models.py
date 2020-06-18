@@ -13,7 +13,7 @@ class Question(models.Model):
         return self.title
 
 class Answer(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='answers', null=True)
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='answers', null=True)
     question = models.ForeignKey(to=Question, on_delete=models.CASCADE, related_name='answers', null=True)
     title = models.CharField(max_length=200, null=True, blank=True)
     body = models.TextField(max_length=1000)
