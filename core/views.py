@@ -5,14 +5,18 @@ from .forms import QuestionForm, AnswerForm
 
 # Create your views here.
 def index(request):
-    return render(request, 'core/index.html')
+    questions = Question.objects.all()
+    return render(request, 'core/index.html', {'questions': questions})
 
 def profile_page(request):
-    return render(request, 'core/profile_page.html')
+    questions = request.user.questions.all()
+    answers = Answer.objects.all()
+    return render(request, 'core/profile_page.html', {'questions': questions, 'answers': answers})
 
 def question_detail(request, question_pk):
-    question = get_object_or_404(request.user.questions, pk=question_pk)
-    return render(request, 'core/question_detail.html', {'question': question})
+    question = get_object_or_404(Question.objects.all(), pk=question_pk)
+    answers = Answer.objects.all()
+    return render(request, 'core/question_detail.html', {'question': question, 'answers':answers})
 
 def new_question(request):
     if request.method == 'POST':

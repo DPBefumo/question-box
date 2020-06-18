@@ -9,8 +9,12 @@
 <img src=""/>
 
 <h3>Questions</h3>
-
+    {% for question in questions %}
+    <a class="" href="{% url 'question_detail' question_pk=question.pk %}">{{ question.title }}</a>
+    {% endfor %}
 <h3>Answers</h3>
-
+    {% for answer in answers %}
+    <p>{{ answer.title }}</p>
+    {% endfor %}
 
 {% endblock %} 

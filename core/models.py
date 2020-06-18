@@ -15,6 +15,7 @@ class Question(models.Model):
 class Answer(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='answers', null=True)
     question = models.ForeignKey(to=Question, on_delete=models.CASCADE, related_name='answers', null=True)
+    title = models.CharField(max_length=200, null=True, blank=True)
     body = models.TextField(max_length=1000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     correct_marker = models.BooleanField(default=False)

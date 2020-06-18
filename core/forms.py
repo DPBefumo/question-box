@@ -13,7 +13,7 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = [
-            'question',
+            'title',
             'body',
             'correct_marker',
         ]

@@ -6,11 +6,16 @@
 
 <p>{{ question.body }}</p>
 
+<a href="{% url 'new_answer' question_pk=question.pk %}">Add an Answer</a>
 
-<h3>Add an Answer</h3>
+<h3>Answers</h3>
 
-<a href="{% url 'new_answer' question_pk=question.pk %}">Add an answer</a>
-
+<ul>
+    {% for answer in answers %}
+        <li>{{ answer.body }}</li>
+    {% endfor %}
+</ul>
+    
 
 
 {% endblock %} 
