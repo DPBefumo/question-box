@@ -45,3 +45,12 @@ def new_answer(request, question_pk):
         form = AnswerForm()
 
     return render(request, 'core/new_answer.html', {'form': form, 'question': question})
+
+def delete_question(request, question_pk):
+    question = get_object_or_404(request.user.questions, pk=question_pk)
+
+    if request.method == 'POST':
+        question.delete()
+        return redirect(to='index')
+
+    return render(request, 'core/delete_question.html', {'question': question})

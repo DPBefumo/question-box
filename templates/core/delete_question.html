@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="underline">Delete Question</h1>
+
+<div>
+    <form action="{% url 'delete_question' question_pk=question.pk %}" method="POST">
+        {% csrf_token %}
+        <p>You sure you want to delete {{ question.title }}?</p>
+        <div>
+            <button type="submit" class="bg-gray f5 link dim br3 ph3 pv2 mb2 dib fw5">Delete</button>
+            <a class=" f5 link dim br3 ba bw2 ph3 pv2 mb2 dib fw6 dark-red" href="{% url 'question_detail' question_pk=question.pk %}">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
