@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Question, Answer
+from .models import Question, Answer, search_questions_for_user
 from users.models import User
 from .forms import QuestionForm, AnswerForm
 
@@ -54,3 +54,13 @@ def delete_question(request, question_pk):
         return redirect(to='index')
 
     return render(request, 'core/delete_question.html', {'question': question})
+
+def search_questions(request):
+    query = request.GET.get('q')
+
+    if query is not None:
+        questions = search_questions_for_user(request.user, query)
+    else:
+        questions = None
+
+    return render(request, "core/search.html", {"questions": questions, "query": query})

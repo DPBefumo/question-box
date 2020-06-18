@@ -22,3 +22,6 @@ class Answer(models.Model):
 
     def __str__(self):
         return f"{self.body}"
+
+def search_questions_for_user(user, query):
+    return user.questions.filter(Q(title__icontains=query) | Q(body__icontains=query))

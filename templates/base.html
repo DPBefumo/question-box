@@ -13,6 +13,7 @@
     <div>
         <a class="" href="{% url 'index' %}">Home</a>
         <a class="" href="{% url 'profile_page' %}">Profile Page</a>
+        <a class="" href="{% url 'search_questions' %}">Search</a>
         <a class="" href="{% url 'auth_logout' %}">Logout</a>
     </div>
         {% if not user.is_authenticated %}
