@@ -15,7 +15,7 @@ def profile_page(request):
 
 def question_detail(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
-    answers = Answer.objects.all()
+    answers = question.answers.all()
     return render(request, 'core/question_detail.html', {'question': question, 'answers':answers})
 
 def new_question(request):
@@ -39,6 +39,7 @@ def new_answer(request, question_pk):
         if form.is_valid():
             answer = form.save(commit=False)
             answer.question = question
+            answer.author = request.user
             answer.save()
             return redirect(to='question_detail', question_pk=question.pk)
     else:
