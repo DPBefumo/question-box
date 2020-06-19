@@ -7,3 +7,5 @@ from django.contrib.auth.models import AbstractUser, User
 
 class User(AbstractUser):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    def is_favorite_answer(self, answer):
+        return self.favorite_answer.filter(pk=answer.pk).count() == 1

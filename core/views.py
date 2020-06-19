@@ -58,10 +58,32 @@ def delete_question(request, question_pk):
 
 def search_questions(request):
     query = request.GET.get('q')
-
+    
     if query is not None:
         questions = search_questions_for_user(request.user, query)
     else:
         questions = None
 
     return render(request, "core/search.html", {"questions": questions, "query": query})
+
+# def search_answers(request):
+#     query = request.GET.get('q')
+
+#     if query is not None:
+#         answers = search_answers_for_user(request.user, query)
+#     else:
+#         answers = None
+    
+#     return render(request, "core/search.html", {"answers": answers, "query": query})
+
+# def search_questions_and_answers(request, **kwargs):
+#     query = request.GET.get('q')
+    
+#     if query is not None:
+#         questions = search_questions_for_user(request.user, query)
+#         answers = search_answers_for_user(request.user, query)
+#     else:
+#         questions = None
+#         answers = None
+
+#     return render(request, "core/search.html", {"questions": questions, "answers": answers, "query": query})

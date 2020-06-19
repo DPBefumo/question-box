@@ -16,7 +16,7 @@
     {% for question in questions %}
         <a class="" href="{% url 'question_detail' question_pk=question.pk %}">{{ question.title }}</a>
     {% empty %}
-        <p>There are no search results</p>
+        <p>There are no questions that match this search</p>
     {% endfor %}
 {% endif %}
 </div>
