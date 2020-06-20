@@ -4,7 +4,7 @@
 
 <h1>Welcome, {{ user.first_name }}</h1>
 
-<a href="">Settings</a>
+<a href="{% url 'edit_profile' user_pk=user.pk %}">Settings</a>
 
 <img src="{{ user.image.url }}"/>
 

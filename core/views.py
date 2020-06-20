@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Question, Answer, search_questions_for_user, Tag
 from users.models import User
-from .forms import QuestionForm, AnswerForm
+from .forms import QuestionForm, AnswerForm, UserForm
 
 # Create your views here.
 def index(request):
@@ -9,10 +9,26 @@ def index(request):
     return render(request, 'core/index.html', {'questions': questions})
 
 
-def profile_page(request):
+def profile_detail(request, user_pk):
+    profile = get_object_or_404(User.objects.all(), pk=user_pk)
     questions = request.user.questions.all()
     answers = Answer.objects.all()
-    return render(request, 'core/profile_page.html', {'questions': questions, 'answers': answers})
+    return render(request, 'core/profile_detail.html', {'profile': profile, 'questions': questions, 'answers': answers})
+
+
+def edit_profile(request, user_pk):
+    profile = get_object_or_404(User.objects.all(), pk=user_pk)
+
+    if request.method == 'POST':
+        form = UserForm(instance=profile, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect(to='profile_detail', user_pk=user.pk)
+    
+    else:
+        form = UserForm(instance=profile)
+    
+    return render(request, 'core/edit_profile.html', {'form': form, 'profile': profile})
 
 
 def question_detail(request, question_pk):

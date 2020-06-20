@@ -1,5 +1,5 @@
 from django import forms
-from .models import Question, Answer
+from .models import Question, Answer, User
 
 class QuestionForm(forms.ModelForm):
     tag_names = forms.CharField(label='Tags', help_text='Separate tags with a space', widget=forms.TextInput(attrs={'class': ''}))
@@ -19,4 +19,11 @@ class AnswerForm(forms.ModelForm):
         fields = [
             'title',
             'body',
+        ]
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'image',
         ]
