@@ -5,16 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block meta %}{% endblock %}
-    <title>Question Box</title>
+    <title>{% block title %}Question Box{% endblock %}</title>
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
     <link rel="stylesheet" href="{% static 'css/core.css' %}"/>
 </head>
 <body class="avenir tracked">
     <div>
         <a class="" href="{% url 'index' %}">Home</a>
-        <a class="" href="{% url 'profile_detail' user_pk=user.pk %}">Profile Page</a>
         <a class="" href="{% url 'search_questions' %}">Search</a>
+        {% if user.is_authenticated %}
+        <a class="" href="{% url 'profile_detail' user_pk=user.pk %}">Profile Page</a>
         <a class="" href="{% url 'auth_logout' %}">Logout</a>
+        {% endif %}
     </div>
         {% if not user.is_authenticated %}
         <p>Please <a href="{% url 'auth_login' %}">login</a> or <a href="{% url 'registration_register' %}">create a new account</a></p>

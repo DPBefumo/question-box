@@ -10,18 +10,18 @@
         <a class="" href="{% url 'show_tag' tag_name=tag.tag %}">{{ tag }}</a>
     {% endfor %}
 </div>
+<p>{{ question.user }}</p>
 <p>{{ question.body }}</p>
 
 <a href="{% url 'add_answer' question_pk=question.pk %}">Add an Answer</a>
 
 <h3>Answers</h3>
-
-<ul>
     {% for answer in answers %}
-        <li>{{ answer.title }}</li>
-        <li>{{ answer.body }}</li>
+        <ul>{{ answer.title }}
+            <li>User: {{ answer.author }}</li>
+            <li>{{ answer.body }}</li>
+        </ul>
     {% endfor %}
-</ul>
 
 <a class="bg-gray f5 link dim br3 ph3 pv2 mb2 dib fw5" href="{% url 'delete_question' question_pk=question.pk %}">Delete Question</a>
     

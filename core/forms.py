@@ -26,4 +26,8 @@ class UserForm(forms.ModelForm):
         model = User
         fields = [
             'image',
+            'location',
+            'bio',
+            'web_link',
+            'github_link',
         ]

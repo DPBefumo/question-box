@@ -52,7 +52,7 @@ class Answer(models.Model):
 
 
 def search_questions_for_user(user, query):
-    questions = Question.objects
+    questions = Question.objects.all()
     return questions.annotate(search=SearchVector('user', 'title', 'body', 'tags')).filter(search=query).distinct('pk')
 
 

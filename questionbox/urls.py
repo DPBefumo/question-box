@@ -23,14 +23,14 @@ urlpatterns = [
     path('', core_views.index, name='index'),
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('core/<int:user_pk>/', core_views.profile_detail, name='profile_detail'),
+    path('accounts/<int:user_pk>/', core_views.profile_detail, name='profile_detail'),
     path('core/<int:question_pk>/', core_views.question_detail, name='question_detail'),
     path('core/new_question/', core_views.new_question, name='new_question'),
     path('core/<int:question_pk>/add_answer/', core_views.add_answer, name='add_answer'),
     path('core/<int:question_pk>/delete', core_views.delete_question, name='delete_question'),
     path('core/search/', core_views.search_questions, name="search_questions"),
     path('tags/<str:tag_name>/', core_views.show_tag, name='show_tag'),
-    path('core/<int:user_pk>/edit/', core_views.edit_profile, name='edit_profile'),
+    path('accounts/<int:user_pk>/edit/', core_views.edit_profile, name='edit_profile'),
 ]
 
 if settings.DEBUG:

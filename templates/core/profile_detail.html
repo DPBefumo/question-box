@@ -8,6 +8,16 @@
 
 <img src="{{ user.image.url }}"/>
 
+<p>Location</p>
+<p>{{ user.location }}</p>
+
+<p>About Me</p>
+<p>{{ user.bio }}</p>
+
+<a href="{{ user.web_link }}">Personal Page</a>
+
+<a href="{{ user.github_link }}">GitHub Page</a>
+
 <h3>Questions</h3>
     {% for question in questions %}
     <a class="" href="{% url 'question_detail' question_pk=question.pk %}">{{ question.title }}</a>

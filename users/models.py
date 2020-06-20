@@ -6,8 +6,11 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    # profile = models.URLField
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    location = models.CharField(max_length=250, null=True, blank=True)
+    bio = models.TextField(max_length=200, null=True, blank=True)
+    web_link = models.URLField(max_length=200, null=True, blank=True)
+    github_link = models.URLField(max_length=200, null=True, blank=True)
 
     
     def is_favorite_answer(self, answer):
