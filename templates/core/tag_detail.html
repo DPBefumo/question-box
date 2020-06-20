@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ tag }}</h1>
+
+<div class="">
+    {% for question in questions.all %}
+        <a class="" href="{% url 'question_detail' question_pk=question.pk %}">{{ question.title }}</a>
+    {% endfor %}
+</div>
+
+{% endblock %}

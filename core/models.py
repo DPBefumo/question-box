@@ -17,6 +17,23 @@ class Question(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     tags = models.ManyToManyField(to=Tag, related_name='questions')
     
+    def get_tag_names(self):
+        tag_names = []
+        for tag in self.tags.all():
+            tag_names.append(tag.tag)
+
+        return " ".join(tag_names)
+
+    def set_tag_names(self, tag_names):
+        tag_names = tag_names.split()
+        tags = []
+        for tag_name in tag_names:
+            tag = Tag.objects.filter(tag=tag_name).first()
+            if tag is None:
+                tag = Tag.objects.create(tag=tag_name)
+            tags.append(tag)
+        self.tags.set(tags)
+
     def __str__(self):
         return self.title
 
@@ -33,26 +50,28 @@ class Answer(models.Model):
     def __str__(self):
         return f"{self.body}"
 
-def get_tag_names(self):
-    tag_names = []
-    for tag in self.tags.all():
-        tag_names.append(tag.tag)
-
-    return " ".join(tag_names)
-
-def set_tag_names(self, tag_names):
-    tag_names = tag_names.split()
-    tags = []
-    for tag_name in tag_names:
-        tag = Tag.objects.filter(tag=tag_name).first()
-        if tag is None:
-            tag = Tag.objects.create(tag=tag_name)
-        tags.append(tag)
-    self.tags.set(tags)
 
 def search_questions_for_user(user, query):
     questions = Question.objects
     return questions.annotate(search=SearchVector('user', 'title', 'body', 'tags')).filter(search=query).distinct('pk')
+
+
+# def get_tag_names(self):
+#     tag_names = []
+#     for tag in self.tags.all():
+#         tag_names.append(tag.tag)
+
+#     return " ".join(tag_names)
+
+# def set_tag_names(self, tag_names):
+#     tag_names = tag_names.split()
+#     tags = []
+#     for tag_name in tag_names:
+#         tag = Tag.objects.filter(tag=tag_name).first()
+#         if tag is None:
+#             tag = Tag.objects.create(tag=tag_name)
+#         tags.append(tag)
+#     self.tags.set(tags)
 
 # def search_answers_for_user(user, query, **kwargs):
 #     answers = Answer.objects

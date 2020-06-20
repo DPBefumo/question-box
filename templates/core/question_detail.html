@@ -4,9 +4,15 @@
 
 <h1>{{ question.title }}</h1>
 
+<p>Tags</p>
+<div>
+    {% for tag in question.tags.all %}
+        <a class="" href="{% url 'show_tag' tag_name=tag.tag %}">{{ tag }}</a>
+    {% endfor %}
+</div>
 <p>{{ question.body }}</p>
 
-<a href="{% url 'new_answer' question_pk=question.pk %}">Add an Answer</a>
+<a href="{% url 'add_answer' question_pk=question.pk %}">Add an Answer</a>
 
 <h3>Answers</h3>
 

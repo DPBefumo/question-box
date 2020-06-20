@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Question, Answer, search_questions_for_user
+from .models import Question, Answer, search_questions_for_user, Tag
 from users.models import User
 from .forms import QuestionForm, AnswerForm
 
@@ -8,15 +8,18 @@ def index(request):
     questions = Question.objects.all()
     return render(request, 'core/index.html', {'questions': questions})
 
+
 def profile_page(request):
     questions = request.user.questions.all()
     answers = Answer.objects.all()
     return render(request, 'core/profile_page.html', {'questions': questions, 'answers': answers})
 
+
 def question_detail(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
     answers = question.answers.all()
     return render(request, 'core/question_detail.html', {'question': question, 'answers':answers})
+
 
 def new_question(request):
     if request.method == 'POST':
@@ -25,13 +28,15 @@ def new_question(request):
             question = form.save(commit=False)
             question.user = request.user
             question.save()
+            question.set_tag_names(form.cleaned_data['tag_names'])
             return redirect(to='question_detail', question_pk=question.pk)
     else:
         form = QuestionForm()
     
     return render(request, 'core/new_question.html', {'form': form})
 
-def new_answer(request, question_pk):
+
+def add_answer(request, question_pk):
     question = get_object_or_404(request.user.questions, pk=question_pk)
 
     if request.method == 'POST':
@@ -45,7 +50,8 @@ def new_answer(request, question_pk):
     else:
         form = AnswerForm()
 
-    return render(request, 'core/new_answer.html', {'form': form, 'question': question})
+    return render(request, 'core/add_answer.html', {'form': form, 'question': question})
+
 
 def delete_question(request, question_pk):
     question = get_object_or_404(request.user.questions, pk=question_pk)
@@ -55,6 +61,13 @@ def delete_question(request, question_pk):
         return redirect(to='index')
 
     return render(request, 'core/delete_question.html', {'question': question})
+
+
+def show_tag(request, tag_name):
+    tag = get_object_or_404(Tag, tag=tag_name)
+    questions = tag.questions.filter(user=request.user)
+    return render(request, 'core/tag_detail.html', {'tag': tag, 'questions': questions})
+
 
 def search_questions(request):
     query = request.GET.get('q')

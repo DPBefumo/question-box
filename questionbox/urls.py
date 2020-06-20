@@ -26,9 +26,10 @@ urlpatterns = [
     path('core/profile/', core_views.profile_page, name='profile_page'),
     path('core/<int:question_pk>/', core_views.question_detail, name='question_detail'),
     path('core/new_question/', core_views.new_question, name='new_question'),
-    path('core/<int:question_pk>/new_answer/', core_views.new_answer, name='new_answer'),
+    path('core/<int:question_pk>/add_answer/', core_views.add_answer, name='add_answer'),
     path('core/<int:question_pk>/delete', core_views.delete_question, name='delete_question'),
     path('core/search/', core_views.search_questions, name="search_questions"),
+    path('tags/<str:tag_name>/', core_views.show_tag, name='show_tag'),
 ]
 
 if settings.DEBUG:

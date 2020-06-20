@@ -2,6 +2,8 @@ from django import forms
 from .models import Question, Answer
 
 class QuestionForm(forms.ModelForm):
+    tag_names = forms.CharField(label='Tags', help_text='Separate tags with a space', widget=forms.TextInput(attrs={'class': ''}))
+    
     class Meta:
         model = Question
         fields = [
@@ -10,10 +12,11 @@ class QuestionForm(forms.ModelForm):
         ]
 
 class AnswerForm(forms.ModelForm):
+
+    
     class Meta:
         model = Answer
         fields = [
             'title',
             'body',
-            'correct_marker',
         ]
