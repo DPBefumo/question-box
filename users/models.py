@@ -7,6 +7,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
     location = models.CharField(max_length=250, null=True, blank=True)
     bio = models.TextField(max_length=200, null=True, blank=True)
     web_link = models.URLField(max_length=200, null=True, blank=True)

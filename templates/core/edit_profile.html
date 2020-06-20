@@ -4,7 +4,7 @@
 
 <h1 class="">Edit Profile</h1>
 
-<form action='{% url "profile_detail" user_pk=user.pk %}' method='POST'>
+<form action='{% url "edit_profile" user_pk=user.pk %}' method='POST' enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type='submit'>Save Changes</button>

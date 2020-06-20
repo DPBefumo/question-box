@@ -21,7 +21,7 @@ def edit_profile(request, user_pk):
     profile = get_object_or_404(User.objects.all(), pk=user_pk)
 
     if request.method == 'POST':
-        form = UserForm(instance=profile, data=request.POST)
+        form = UserForm(data=request.POST, instance=profile)
         if form.is_valid():
             user = form.save()
             return redirect(to='profile_detail', user_pk=user.pk)
