@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Question, Answer, search_questions_for_user, Tag
+from django.contrib.auth.decorators import login_required
 from users.models import User
 from .forms import QuestionForm, AnswerForm, UserForm
 
