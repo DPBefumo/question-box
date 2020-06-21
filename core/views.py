@@ -9,14 +9,14 @@ def index(request):
     questions = Question.objects.all()
     return render(request, 'core/index.html', {'questions': questions})
 
-
+@login_required
 def profile_detail(request, user_pk):
     profile = get_object_or_404(User.objects.all(), pk=user_pk)
     questions = request.user.questions.all()
     answers = Answer.objects.all()
     return render(request, 'core/profile_detail.html', {'profile': profile, 'questions': questions, 'answers': answers})
 
-
+@login_required
 def edit_profile(request, user_pk):
     profile = get_object_or_404(User.objects.all(), pk=user_pk)
 
@@ -37,7 +37,7 @@ def question_detail(request, question_pk):
     answers = question.answers.all()
     return render(request, 'core/question_detail.html', {'question': question, 'answers':answers})
 
-
+@login_required
 def new_question(request):
     if request.method == 'POST':
         form = QuestionForm(data=request.POST)
@@ -52,7 +52,7 @@ def new_question(request):
     
     return render(request, 'core/new_question.html', {'form': form})
 
-
+@login_required
 def add_answer(request, question_pk):
     question = get_object_or_404(request.user.questions, pk=question_pk)
 
@@ -69,7 +69,7 @@ def add_answer(request, question_pk):
 
     return render(request, 'core/add_answer.html', {'form': form, 'question': question})
 
-
+@login_required
 def delete_question(request, question_pk):
     question = get_object_or_404(request.user.questions, pk=question_pk)
 
