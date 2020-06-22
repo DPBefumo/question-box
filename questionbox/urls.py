@@ -32,6 +32,7 @@ urlpatterns = [
     path('tags/<str:tag_name>/', core_views.show_tag, name='show_tag'),
     path('accounts/<int:user_pk>/edit/', core_views.edit_profile, name='edit_profile'),
     path('core/<int:question_pk>/favorite/', core_views.toggle_favorite_question, name="toggle_favorite_question"), 
+    path('core/<int:question_pk>/<int:answer_pk>/correct/', core_views.mark_answer_correct, name='mark_answer_correct'),
 ]
 
 if settings.DEBUG:

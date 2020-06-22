@@ -21,7 +21,7 @@ for (let answer of markCorrectLink){answer.addEventListener("click", (event) => 
     event.preventDefault();
     const questionId = answer.dataset.questionId;
     const answerId = answer.dataset.answerId;
-    fetch("/questions/" + questionId + "/" + answerId + "/mark_correct/", {
+    fetch("/core/" + questionId + "/" + answerId + "/correct/", {
         method: "POST",
         credentials: "include",
     })

@@ -127,7 +127,7 @@ def toggle_favorite_question(request, question_pk):
 
 @csrf_exempt
 def mark_answer_correct(request, question_pk, answer_pk):
-    questions = Questions.objects.all()
+    questions = Question.objects.all()
     question = get_object_or_404(questions, pk=question_pk)
     answers = question.answers.all()
     answer = get_object_or_404(answers, pk=answer_pk)

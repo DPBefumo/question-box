@@ -6,9 +6,9 @@
 <h1>{{ question.title }}</h1>
 {% if user.is_authenticated %}
 {% if user_favorite_question %}
-<a id="favorited" data-question-id="{{ question.pk }}" href="#">&#9734;</a>
+<a class="no-underline" id="favorited" data-question-id="{{ question.pk }}" href="#">&#9734;</a>
 {% else %}
-<a id="favorited" data-question-id="{{ question.pk }}" href="#">&#11088;</a>
+<a class="no-underline" id="favorited" data-question-id="{{ question.pk }}" href="#">&#11088;</a>
 {% endif %}
 {% endif %}
 <p>Tags</p>
@@ -25,8 +25,9 @@
         <ul id="answer-{{ answer.pk }}">{{ answer.title }}
             <li>User: {{ answer.author }}</li>
             <li>{{ answer.body |markdownify }}</li>
+            <li>{{ answer.tags }}</li>
             {% if user == question.user %}
-            <a id="mark-correct" data-question-id="{{ question.pk }}" data-answer-id="{{ answer.pk }}" href="#">{% if answer.marked_correct %} Marked Correct {% else %} &#9989 {% endif %}</a>
+            <a class="no-underline" id="mark-correct" data-question-id="{{ question.pk }}" data-answer-id="{{ answer.pk }}" href="#">{% if answer.marked_correct %} &#9989 {% else %} Is this correct? {% endif %}</a>
             {% endif %}
         </ul>
     {% endfor %}
