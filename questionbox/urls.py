@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.urls import include, path
 from core import views as core_views
 
+
 urlpatterns = [
     path('', core_views.index, name='index'),
     path('admin/', admin.site.urls),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('accounts/<int:user_pk>/edit/', core_views.edit_profile, name='edit_profile'),
     path('core/<int:question_pk>/favorite/', core_views.toggle_favorite_question, name="toggle_favorite_question"), 
     path('core/<int:question_pk>/<int:answer_pk>/correct/', core_views.mark_answer_correct, name='mark_answer_correct'),
+
 ]
 
 if settings.DEBUG:

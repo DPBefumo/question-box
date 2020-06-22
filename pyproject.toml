@@ -18,6 +18,7 @@ bleach-whitelist = "^0.0.10"
 django-markdownify = "^0.8.0"
 django-registration-redux = "^2.8"
 Pillow = "^7.1.2"
+djangorestframework = "^3.11.0"
 
 [tool.poetry.dev-dependencies]
 

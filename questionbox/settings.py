@@ -50,10 +50,12 @@ INSTALLED_APPS = [
     'django_extensions',
     'markdownify',
     'registration',
+    'rest_framework',
 
     # Project-specific
     'users',
     'core',
+    'api',
 ]
 
 MIDDLEWARE = [
