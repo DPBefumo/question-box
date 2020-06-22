@@ -4,7 +4,11 @@
 {% block content %}
 
 <h1>{{ question.title }}</h1>
-
+{% if user_favorite_answer %}
+<a id="favorited" data-recipe-id="{{ question.pk }}" href="#">Unfavorite this recipe</a>
+{% else %}
+<a id="favorited" data-recipe-id="{{ question.pk }}" href="#">Favorite this recipe</a>
+{% endif %}
 <p>Tags</p>
 <div>
     {% for tag in question.tags.all %}
@@ -20,7 +24,7 @@
 
 <h3>Answers</h3>
     {% for answer in answers %}
-        <ul>{{ answer.title }}
+        <ul id="answer-{{ answer.pk }}">{{ answer.title }}
             <li>User: {{ answer.author }}</li>
             <li>{{ answer.body |markdownify }}</li>
         </ul>

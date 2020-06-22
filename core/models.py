@@ -15,6 +15,7 @@ class Question(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField(max_length=1000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    favorited_by = models.ManyToManyField(to=User, related_name='favorite_questions')
     tags = models.ManyToManyField(to=Tag, related_name='questions')
     
     def get_tag_names(self):
@@ -44,7 +45,7 @@ class Answer(models.Model):
     body = models.TextField(max_length=1000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     correct_marker = models.BooleanField(default=False)
-    favorited_by = models.ManyToManyField(to=User, related_name='favorite_answer')
+    favorited_by = models.ManyToManyField(to=User, related_name='favorite_answers')
     tags = models.ManyToManyField(to=Tag, related_name='answers')
 
     def __str__(self):

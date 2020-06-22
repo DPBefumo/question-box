@@ -24,7 +24,7 @@
     {% endfor %}
 <h3>Answers</h3>
     {% for answer in answers %}
-    <a class="" href="{% url 'question_detail' question_pk=question.pk %}">{{ answer.title }}</a>
+    <a class="" href="{% url 'question_detail' question_pk=answer.question.pk %}#answer-{{ answer.pk }}">{{ answer.title }}</a>
     {% endfor %}
 
 {% endblock %} 

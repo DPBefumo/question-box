@@ -1,6 +1,28 @@
-// function to add in star for favorite answer
+// function to add in star for favorite question
 
-const favoriteAnswerLink = document.querySelector('#favorite-answer')
+console.log("fuck this shit")
+
+const favoriteQuestionLink = document.querySelector('#favorited')
+favoriteQuestionLink.addEventListener('click', event => {
+    event.preventDefault()
+    const questionId = favoriteQuestionLink.dataset.questionId
+    fetch('/core/' + questionId + '/favorite/', {
+        method: 'POST',
+        credentials: 'include'
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.isFavorite) {
+            favoriteQuestionLink.innerText = 'Unfavorite this recipe'
+        } else {
+            favoriteQuestionLink.innerText = 'favorite this recipe'
+        }
+    })
+})
+
+
+// function to add in star for favorite answer
+const favoriteAnswerLink = document.querySelector('#favorited')
 favoriteAnswerLink.addEventListener('click', event => {
     event.preventDefault()
     const answerId = favoriteAnswerLink.dataset.answerId
@@ -11,9 +33,9 @@ favoriteAnswerLink.addEventListener('click', event => {
     .then(res => res.json())
     .then(data => {
         if (data.isFavorite) {
-            favoriteAnswerLink.innerHTML = ''
+            favoriteAnswerLink.innerText = 'Unfavorite this recipe'
         } else {
-            favoriteAnswerLink.innerHTML = ''
+            favoriteAnswerLink.innerText = 'favorite this recipe'
         }
     })
 })

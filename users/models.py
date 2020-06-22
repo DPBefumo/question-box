@@ -15,5 +15,8 @@ class User(AbstractUser):
     github_link = models.URLField(max_length=200, null=True, blank=True)
 
     
+    def is_favorite_question(self, question):
+        return self.favorite_questions.filter(pk=question.pk).count() == 1
+
     def is_favorite_answer(self, answer):
-        return self.favorite_answer.filter(pk=answer.pk).count() == 1
+        return self.favorite_answers.filter(pk=answer.pk).count() == 1
