@@ -3,6 +3,7 @@ from .models import Question, Answer, search_questions_for_user, Tag
 from django.contrib.auth.decorators import login_required
 from users.models import User
 from .forms import QuestionForm, AnswerForm, UserForm
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
 # Create your views here.
@@ -33,6 +34,7 @@ def edit_profile(request, user_pk):
     return render(request, 'core/edit_profile.html', {'form': form, 'profile': profile})
 
 
+@login_required
 def question_detail(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
     answers = question.answers.all()
@@ -98,7 +100,7 @@ def search_questions(request):
 
     return render(request, "core/search.html", {"questions": questions, "query": query})
 
-
+@csrf_exempt
 def toggle_favorite_question(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
 
