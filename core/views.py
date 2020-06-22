@@ -34,12 +34,26 @@ def edit_profile(request, user_pk):
     return render(request, 'core/edit_profile.html', {'form': form, 'profile': profile})
 
 
-@login_required
+
 def question_detail(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
     answers = question.answers.all()
-    user_favorite_question = request.user.is_favorite_question(question)
-    return render(request, 'core/question_detail.html', {'question': question, 'answers':answers, 'user_favorite_question': user_favorite_question})
+    user_favorite_question = False
+    if request.user.is_authenticated:
+        user_favorite_question = request.user.is_favorite_question(question)
+    
+    if request.method == 'POST':
+        form = AnswerForm(data=request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.question = question
+            answer.author = request.user
+            answer.save()
+        return redirect(to='question_detail', question_pk=question.pk)
+    else:
+        form = AnswerForm()
+
+    return render(request, 'core/question_detail.html', {'question': question, 'answers':answers, 'user_favorite_question': user_favorite_question, 'form': form})
 
 @login_required
 def new_question(request):
@@ -58,7 +72,7 @@ def new_question(request):
 
 @login_required
 def add_answer(request, question_pk):
-    question = get_object_or_404(request.user.questions, pk=question_pk)
+    question = get_object_or_404(Question, pk=question_pk)
 
     if request.method == 'POST':
         form = AnswerForm(data=request.POST)
@@ -111,31 +125,18 @@ def toggle_favorite_question(request, question_pk):
         request.user.favorite_questions.add(question)
         return JsonResponse({"isFavorite": True})
 
+@csrf_exempt
+def mark_answer_correct(request, question_pk, answer_pk):
+    questions = Questions.objects.all()
+    question = get_object_or_404(questions, pk=question_pk)
+    answers = question.answers.all()
+    answer = get_object_or_404(answers, pk=answer_pk)
 
-# def search_answers(request):
-#     query = request.GET.get('q')
-
-#     if query is not None:
-#         answers = search_answers_for_user(request.user, query)
-#     else:
-#         answers = None
-    
-#     return render(request, "core/search.html", {"answers": answers, "query": query})
-
-# def search_questions_and_answers(request, **kwargs):
-#     query = request.GET.get('q')
-    
-#     if query is not None:
-#         questions = search_questions_for_user(request.user, query)
-#         answers = search_answers_for_user(request.user, query)
-#     else:
-#         questions = None
-#         answers = None
-
-#     return render(request, "core/search.html", {"questions": questions, "answers": answers, "query": query})
-
-# def question_detail(request, question_pk):
-#     question = get_object_or_404(Question.objects.all(), pk=question_pk)
-#     answers = question.answers.all()
-#     user_favorite_answer = request.user.favorite_answers.filter(answers).count() == 1
-#     return render(request, 'core/question_detail.html', {'question': question, 'answers':answers, 'user_favorite_answer': user_favorite_answer})
+    if answer.marked_correct == True:
+        answer.marked_correct=False
+        answer.save()
+        return JsonResponse({"markedCorrect": False})
+    else:
+        answer.marked_correct=True
+        answer.save()
+        return JsonResponse({"markedCorrect": True})

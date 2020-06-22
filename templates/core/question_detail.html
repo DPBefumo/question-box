@@ -20,41 +20,28 @@
 <p>{{ question.user }}</p>
 <p>{{ question.body |markdownify }}</p>
 
-{% if user.is_authenticated %}
-<a href="{% url 'add_answer' question_pk=question.pk %}">Add an Answer</a>
-{% endif %}
-
 <h3>Answers</h3>
     {% for answer in answers %}
         <ul id="answer-{{ answer.pk }}">{{ answer.title }}
             <li>User: {{ answer.author }}</li>
             <li>{{ answer.body |markdownify }}</li>
+            {% if user == question.user %}
+            <a id="mark-correct" data-question-id="{{ question.pk }}" data-answer-id="{{ answer.pk }}" href="#">{% if answer.marked_correct %} Marked Correct {% else %} &#9989 {% endif %}</a>
+            {% endif %}
         </ul>
     {% endfor %}
 
 {% if user.is_authenticated %}
+<h4>Add an Answer</h4>
+<form action="{% url 'add_answer' question_pk=question.pk %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+        <button class="" type="submit">Add Answer</button>
+    </div>
+</form>
+
 <a class="bg-gray f5 link dim br3 ph3 pv2 mb2 dib fw5" href="{% url 'delete_question' question_pk=question.pk %}">Delete Question</a>
 {% endif %}
-
-<script>
-    const favoriteQuestionLink = document.querySelector("#favorited")
-    favoriteQuestionLink.addEventListener("click", event => {
-        event.preventDefault()
-        const questionId = favoriteQuestionLink.dataset.questionId
-        fetch('/core/' + questionId + '/favorite/', {
-            method: 'POST',
-            credentials: 'include'
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.isFavorite) {
-                favoriteQuestionLink.innerHTML = '&#9734'
-            } else {
-                favoriteQuestionLink.innerHTML = '&#11088;'
-            }
-        })
-    })
-</script>
-
 
 {% endblock %} 

@@ -20,3 +20,5 @@ class User(AbstractUser):
 
     def is_favorite_answer(self, answer):
         return self.favorite_answers.filter(pk=answer.pk).count() == 1
+
+

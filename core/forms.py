@@ -12,8 +12,8 @@ class QuestionForm(forms.ModelForm):
         ]
 
 class AnswerForm(forms.ModelForm):
+    tag_names = forms.CharField(label='Tags', help_text='Separate tags with a space', widget=forms.TextInput(attrs={'class': ''}))
 
-    
     class Meta:
         model = Answer
         fields = [
