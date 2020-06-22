@@ -18,9 +18,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
 from core import views as core_views
+from api import views as api_views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('users', api_views.UserViewSet)
+router.register('questions', api_views.QuestionViewSet, basename='question')
+router.register('answers', api_views.AnswerViewSet, basename='answer')
 
 
 urlpatterns = [
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(router.urls)),
     path('', core_views.index, name='index'),
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),

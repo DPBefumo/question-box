@@ -160,3 +160,9 @@ LOGOUT_REDIRECT_URL ='/'
 #profile pictures
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#REST Django Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':
+    ['rest_framework.permissions.IsAuthenticatedOrReadOnly']
+}
