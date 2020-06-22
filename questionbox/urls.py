@@ -31,7 +31,7 @@ urlpatterns = [
     path('core/search/', core_views.search_questions, name="search_questions"),
     path('tags/<str:tag_name>/', core_views.show_tag, name='show_tag'),
     path('accounts/<int:user_pk>/edit/', core_views.edit_profile, name='edit_profile'),
-    path('core/<int:question_pk>/favorite/', core_views.toggle_favorite_question, name="toggle_favorite_question"),
+    path('core/<int:question_pk>/favorite/', core_views.toggle_favorite_question, name="toggle_favorite_question"), 
 ]
 
 if settings.DEBUG:

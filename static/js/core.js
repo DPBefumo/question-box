@@ -2,8 +2,8 @@
 
 console.log("fuck this shit")
 
-const favoriteQuestionLink = document.querySelector('#favorited')
-favoriteQuestionLink.addEventListener('click', event => {
+const favoriteQuestionLink = document.querySelector("#favorited")
+favoriteQuestionLink.addEventListener("click", event => {
     event.preventDefault()
     const questionId = favoriteQuestionLink.dataset.questionId
     fetch('/core/' + questionId + '/favorite/', {
@@ -41,3 +41,5 @@ favoriteAnswerLink.addEventListener('click', event => {
 })
 
 // function to have answer added in on question page and not to take you to another page
+
+
