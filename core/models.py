@@ -15,7 +15,7 @@ class Question(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField(max_length=1000)
     time_stamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    favorited_by = models.ManyToManyField(to=User, related_name='favorite_questions')
+    favorited_by = models.ManyToManyField(to=User, related_name='favorite_questions', blank=True)
     tags = models.ManyToManyField(to=Tag, related_name='questions')
     
     def get_tag_names(self):

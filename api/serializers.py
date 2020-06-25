@@ -8,14 +8,28 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'id',
             'url',
+            'image',
             'username',
             'email',
-            'is_staff'
+            'is_staff',
             'location',
             'bio',
         ]
 
+class AnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = [
+            'author',
+            'question',
+            'title',
+            'body',
+            'marked_correct',
+        ]
+
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+    answers = AnswerSerializer(many=True, read_only=True)
+
     class Meta:
         model = Question
         fields = [
@@ -24,14 +38,25 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
             'title',
             'body',
             'favorited_by',
+            'answers',
         ]
-class AnswerSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Answer
-        fields = [
-            'url',
-            'author',
-            'title',
-            'body',
-            'marked_correct',
-        ]
+
+    # def create(self, validated_data):
+    #     """
+    #     Create and return a new 'Question' instance, given the validated data
+    #     """
+    #     answers = validated_data.pop('answers', [])
+    #     question = Question.objects.create(**validated_data)
+    #     for answer in answers:
+    #         question.answers.create(**answer)
+    #     return question
+
+    # def update(self, instance, validated_data):
+    #     """
+    #     Update and return an existing 'Question' instance, given the validated data
+    #     """
+    #     instance.user = validated_data.get('user', instance.user)
+    #     instance.title = validated_data.get('title', instance.title)
+    #     instance.body = validated_data.get('body', instance.body)
+    #     instance.save()
+    #     return instance
